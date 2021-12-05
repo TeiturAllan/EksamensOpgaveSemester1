@@ -19,8 +19,6 @@ const { json } = require('express')
 )
   
 
-const users = []
-
 
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
@@ -59,7 +57,7 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
   })
   
 app.post('/register', checkNotAuthenticated, (req, res) => {
-    users.push({
+    newUser.push({
         id: Date.now().toString(),
         username: req.body.username,
         email: req.body.email,
@@ -67,10 +65,11 @@ app.post('/register', checkNotAuthenticated, (req, res) => {
     })
     res.redirect('/login')
 
-    let newUserCreated = JSON.stringify(users, null, 2);
+    let newUserCreated = JSON.stringify(newUser, null, 2);
     fs.writeFile('usersData.json', newUserCreated, (err) => {
     if (err) throw err;
     console.log('New User added to database')
+    console.log(users)
 })
 })
   
@@ -99,6 +98,8 @@ function checkNotAuthenticated(req, res, next) {
     next()
 }
 
-
+let newUser = []
+let userRawData = fs.readFileSync('usersData.json')
+let users = JSON.parse(userRawData)
 
 app.listen(3000)
