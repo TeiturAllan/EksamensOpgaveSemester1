@@ -120,6 +120,49 @@ app.get("/listings/myListings", checkAuthenticated, (req, res) => {
 app.get("/listings/create", checkAuthenticated, (req, res) => {
     res.render("createListing.ejs", { usernameDisplay: req.user.username })
 })
+
+
+//start of: routing for listings categories
+app.get("/listings/cases", checkAuthenticated, (req, res) => {
+    res.render("listingsCase.ejs", { usernameDisplay: req.user.username })
+})
+
+app.get("/listings/CPUs", checkAuthenticated, (req, res) => {
+    res.render("listingsCPU.ejs", { usernameDisplay: req.user.username })
+})
+
+app.get("/listings/CPUCoolers", checkAuthenticated, (req, res) => {
+    res.render("listingsCPUCooler.ejs", { usernameDisplay: req.user.username })
+})
+
+app.get("/listings/displays", checkAuthenticated, (req, res) => {
+    res.render("listingsDisplay.ejs", { usernameDisplay: req.user.username })
+})
+
+app.get("/listings/GPUs", checkAuthenticated, (req, res) => {
+    res.render("listingsGPU.ejs", { usernameDisplay: req.user.username })
+})
+
+app.get("/listings/motherboards", checkAuthenticated, (req, res) => {
+    res.render("listingsMotherboard.ejs", { usernameDisplay: req.user.username })
+})
+
+app.get("/listings/peripherals", checkAuthenticated, (req, res) => {
+    res.render("listingsPeripherals.ejs", { usernameDisplay: req.user.username })
+})
+
+app.get("/listings/PSUs", checkAuthenticated, (req, res) => {
+    res.render("listingsPSU.ejs", { usernameDisplay: req.user.username })
+})
+
+app.get("/listings/RAM", checkAuthenticated, (req, res) => {
+    res.render("listingsRAM.ejs", { usernameDisplay: req.user.username })
+})
+
+app.get("/listings/storage", checkAuthenticated, (req, res) => {
+    res.render("listingsStorage.ejs", { usernameDisplay: req.user.username })
+})
+//End of: routing for listings categories
 //End of: routing for "/listings"
 
 
