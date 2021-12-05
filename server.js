@@ -1,7 +1,8 @@
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
   }
-  
+
+const fs = require('fs')  
 const express = require('express')
 const app = express()
 const passport = require('passport')
@@ -10,6 +11,7 @@ const session = require('express-session')
 const methodOverride = require('method-override')
   
 const initializePassport = require('./passportConfig')
+const { json } = require('express')
     initializePassport(
     passport,
     email => users.find(user => user.email === email),
@@ -18,7 +20,7 @@ const initializePassport = require('./passportConfig')
   
 
 const users = []
-  
+
 
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
@@ -64,7 +66,12 @@ app.post('/register', checkNotAuthenticated, (req, res) => {
         password: req.body.password
     })
     res.redirect('/login')
-    console.log(users)
+
+    let newUserCreated = JSON.stringify(users, null, 2);
+    fs.writeFile('usersData.json', newUserCreated, (err) => {
+    if (err) throw err;
+    console.log('New User added to database')
+})
 })
   
 
