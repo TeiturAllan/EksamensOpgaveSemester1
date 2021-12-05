@@ -56,7 +56,9 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 app.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register.ejs')
   })
+
   
+//start of: code for creating a user  
 app.post('/register', checkNotAuthenticated, (req, res) => {
     newUser.push({
         id: Date.now().toString(),
@@ -73,7 +75,8 @@ app.post('/register', checkNotAuthenticated, (req, res) => {
     console.log(users)
 })
 })
-  
+//end of: code for creating a user  
+
 
 
 app.delete('/logout', (req, res) => {
@@ -118,8 +121,29 @@ app.get("/listings/myListings", checkAuthenticated, (req, res) => {
 })
 
 app.get("/listings/create", checkAuthenticated, (req, res) => {
-    res.render("createListing.ejs", { usernameDisplay: req.user.username })
+    res.render("listingCreate.ejs", { usernameDisplay: req.user.username })
 })
+//start of: code for creating a listing
+app.post('/listings/create', checkAuthenticated, (req, res) => {
+    newListing.push({
+        id: Date.now().toString(),
+        productSummary: req.body.productSummary,
+        price: req.body.price,
+        category: req.body.category
+    })
+    console.log('new listing created')
+    console.log(newListing);
+
+   
+})
+
+
+
+
+
+
+
+
 
 
 //start of: routing for listings categories
@@ -186,4 +210,5 @@ let newUser = []
 let userRawData = fs.readFileSync('usersData.json')
 let users = JSON.parse(userRawData)
 
+let newListing = []
 app.listen(3000)

@@ -1,0 +1,36 @@
+<h1>Create new listing</h1>
+<h4>Logged in as: <%= usernameDisplay %></h4>
+
+<div class="Navigation bar">
+    <a href="/">Homepage</a>
+    <a href="/listings">Listings</a>
+</div>
+
+<br>
+
+<form action="/listings/create" method="POST">
+    <div>
+      <label for="productSummary">Short summary of listing</label>
+      <input type="text" id="productSummary" name="productSummary" required>
+    </div>
+    <div>
+      <label for="price">Asking price (Kr.)</label>
+      <input type="price" id="price" name="price" required>
+    </div>
+    <div>
+      <label for="category">Product category</label>
+        <select type="category" id="category" name="category">
+            <option value="case">Case</option>
+            <option value="CPU">CPU</option>
+            <option value="CPUCooler">CPU Cooler</option>
+            <option value="display">Display/Monitor</option>
+            <option value="GPU">GPU</option>
+            <option value="motherboard">Motherboard</option>
+            <option value="peripheral">Peripheral</option>
+            <option value="PSU">PSU</option>
+            <option value="RAM">RAM/Memory</option>
+            <option value="storage">Storage</option>
+        </select>
+    </div>
+    <button type="submit">Post listing</button>
+  </form>
