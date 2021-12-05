@@ -31,7 +31,8 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
-  
+
+//start of: Routing before login and routing to homepage
 app.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs', { usernameDisplay: req.user.username })
 })
@@ -79,7 +80,47 @@ app.delete('/logout', (req, res) => {
     req.logOut()
     res.redirect('/login')
 })
-  
+//End of: Routing before login and routing to homepage  
+
+
+//Start of: Routing from homepage
+app.get("/myAccount", checkAuthenticated, (req, res) => {
+    res.render("accountPage.ejs", { usernameDisplay: req.user.username })
+})
+
+
+
+app.get("/listings", checkAuthenticated, (req, res) => {
+    res.render("listings.ejs", { usernameDisplay: req.user.username })
+})
+//End of: Routing from homepage
+
+
+//Start of: routing from "/MyAccount"
+/*routing for homepage is the same as for every other page*/
+
+app.get("/myAccount/changeAccountInformation", checkAuthenticated, (req, res) => {
+    res.render("changeAccountInformation.ejs", { usernameDisplay: req.user.username })
+})
+
+/*route for "/listings/myListings will be the same as on the "/listings" page,
+it is therefore reduntant to put it here. if you are looking for that route,
+look under routing for listings page */
+
+//End of: routing from "my Account"
+
+
+//Start of: routing for "/listings"
+/*routing for homepage is the same as for every other page*/
+
+app.get("/listings/myListings", checkAuthenticated, (req, res) => {
+    res.render("myListings.ejs", { usernameDisplay: req.user.username })
+})
+
+app.get("/listings/create", checkAuthenticated, (req, res) => {
+    res.render("createListing.ejs", { usernameDisplay: req.user.username })
+})
+//End of: routing for "/listings"
 
 
 function checkAuthenticated(req, res, next) {
