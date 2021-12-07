@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,18 +10,15 @@
   </head>
   <body>
 
+    <h1>Change Account Information</h1>
+    <h4>Logged in as: <%= usernameDisplay %></h4>
+    
+    <div class="Navigation bar">
+        <a href="/">Homepage</a>
+        <a href="/myAccount">My Account</a>
+    </div>
 
-    <h1>Homepage</h1>
-<h4>Logged in as:  <%= usernameDisplay %></h1>
-<div class="Navigation bar">
-  <a href="/myAccount">My Account</a>
-  <a href="/listings">Listings</a>
-</div>
-<br>
 
-<form action="/logout?_method=DELETE" method="POST">
-  <button type="submit">Log Out</button>
-</form>
 
 
 	<script src="index.js"></script>

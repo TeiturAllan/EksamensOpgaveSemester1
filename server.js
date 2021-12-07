@@ -123,13 +123,13 @@ app.delete('/logout', (req, res) => {
 
 //Start of: Routing from homepage
 app.get("/myAccount", checkAuthenticated, (req, res) => {
-    res.render("accountPage.ejs", { usernameDisplay: req.user.username })
+    res.render("accountPage/accountPage.ejs", { usernameDisplay: req.user.username })
 })
 
 
 
 app.get("/listings", checkAuthenticated, (req, res) => {
-    res.render("listings.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/listings.ejs", { usernameDisplay: req.user.username })
 })
 //End of: Routing from homepage
 
@@ -138,7 +138,7 @@ app.get("/listings", checkAuthenticated, (req, res) => {
 /*routing for homepage is the same as for every other page*/
 
 app.get("/myAccount/changeAccountInformation", checkAuthenticated, (req, res) => {
-    res.render("changeAccountInformation.ejs", { usernameDisplay: req.user.username })
+    res.render("accountPage/changeAccountInformation.ejs", { usernameDisplay: req.user.username })
 })
 
 /*route for "/listings/myListings will be the same as on the "/listings" page,
@@ -152,11 +152,11 @@ look under routing for listings page */
 /*routing for homepage is the same as for every other page*/
 
 app.get("/listings/myListings", checkAuthenticated, (req, res) => {
-    res.render("myListings.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/myListings/myListings.ejs", { usernameDisplay: req.user.username })
 })
 
 app.get("/listings/create", checkAuthenticated, (req, res) => {
-    res.render("listingCreate.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/listingCreate/listingCreate.ejs", { usernameDisplay: req.user.username })
 })
 
 
@@ -221,45 +221,45 @@ app.post('/listings/create', upload.single('image'), checkAuthenticated, (req, r
 
 
 
-//start of: routing and displaying data for listings by category
+//start of: routing for listings by category
 app.get("/listings/cases", checkAuthenticated, (req, res) => {
-    res.render("listingsCase.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/listingsCase/listingsCase.ejs", { usernameDisplay: req.user.username })
 })
 
 app.get("/listings/CPUs", checkAuthenticated, (req, res) => {
-    res.render("listingsCPU.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/listingsCPU/listingsCPU.ejs", { usernameDisplay: req.user.username })
 })
 
 app.get("/listings/CPUCoolers", checkAuthenticated, (req, res) => {
-    res.render("listingsCPUCooler.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/listingsCPUCooler/listingsCPUCooler.ejs", { usernameDisplay: req.user.username })
 })
 
 app.get("/listings/displays", checkAuthenticated, (req, res) => {
-    res.render("listingsDisplay.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/listingsDisplay/listingsDisplay.ejs", { usernameDisplay: req.user.username })
 })
 
 app.get("/listings/GPUs", checkAuthenticated, (req, res) => {
-    res.render("listingsGPU.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/listingsGPU/listingsGPU.ejs", { usernameDisplay: req.user.username })
 })
 
 app.get("/listings/motherboards", checkAuthenticated, (req, res) => {
-    res.render("listingsMotherboard.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/listingsMotherboard/listingsMotherboard.ejs", { usernameDisplay: req.user.username })
 })
 
 app.get("/listings/peripherals", checkAuthenticated, (req, res) => {
-    res.render("listingsPeripherals.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/listingsPeripherals/listingsPeripherals.ejs", { usernameDisplay: req.user.username })
 })
 
 app.get("/listings/PSUs", checkAuthenticated, (req, res) => {
-    res.render("listingsPSU.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/listingsPSU/listingsPSU.ejs", { usernameDisplay: req.user.username })
 })
 
 app.get("/listings/RAM", checkAuthenticated, (req, res) => {
-    res.render("listingsRAM.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/listingsRAM/listingsRAM.ejs", { usernameDisplay: req.user.username })
 })
 
 app.get("/listings/storage", checkAuthenticated, (req, res) => {
-    res.render("listingsStorage.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/listingsStorage/listingsStorage.ejs", { usernameDisplay: req.user.username })
 })
 //End of: routing for listings categories
 //End of: routing for "/listings"
@@ -331,4 +331,36 @@ console.log('listings filter into categories')
 //end of: filtering listings into categories
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//document.getElementById("showCPUListings").innerHTML = `<h1> CPU listings (${listingsWithCategoryCPU.length} results)`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.listen(3000)
+
+

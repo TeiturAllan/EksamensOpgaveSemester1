@@ -8,19 +8,14 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <h1>Listings with category: motherboard</h1>
+    <h4>Logged in as: <%= usernameDisplay %></h4>
+    
+    <div class="Navigation bar">
+        <a href="/">Homepage</a>
+        <a href="/listings">Listings</a>
+    </div>
 
-
-    <h1>Homepage</h1>
-<h4>Logged in as:  <%= usernameDisplay %></h1>
-<div class="Navigation bar">
-  <a href="/myAccount">My Account</a>
-  <a href="/listings">Listings</a>
-</div>
-<br>
-
-<form action="/logout?_method=DELETE" method="POST">
-  <button type="submit">Log Out</button>
-</form>
 
 
 	<script src="index.js"></script>
