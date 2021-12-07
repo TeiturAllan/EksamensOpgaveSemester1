@@ -13,6 +13,31 @@ const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
+const multer = require('multer')
+
+
+const storage = multer.diskStorage({
+    destination: function(request, file, cb) {
+        cb(null, 'listingsImages');
+    },
+    filename: function(req, file, cb) {
+        cb(null, Date.now().toString())
+    }
+});
+
+const imageFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+    cb(null, true);
+    } else {
+    cb(null, false);
+    }
+};
+
+
+const upload = multer({
+    storage: storage, 
+    limits: imageFilter})
+
   
 const initializePassport = require('./passportConfig')
 const { json } = require('express')
@@ -129,14 +154,15 @@ app.get("/listings/create", checkAuthenticated, (req, res) => {
 
 
 //start of: code for creating a listing
-app.post('/listings/create', checkAuthenticated, (req, res) => {
+app.post('/listings/create', upload.single('image'), checkAuthenticated, (req, res) => {
     listings.push({
         id: Date.now().toString(),
         productSummary: req.body.productSummary,
         price: req.body.price,
         category: req.body.category,
         listingOwner: req.user.username,
-        listingsOwnerId: req.user.id
+        listingsOwnerId: req.user.id,
+        productImage: req.file.path
     })
     let saveAllListingsToDB = JSON.stringify(listings, null, 2);
     fs.writeFile('listingsData.json', saveAllListingsToDB, (err) => {
@@ -200,6 +226,7 @@ app.get("/listings/storage", checkAuthenticated, (req, res) => {
 })
 //End of: routing for listings categories
 //End of: routing for "/listings"
+
 
 
 function checkAuthenticated(req, res, next) {

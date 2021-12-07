@@ -8,7 +8,7 @@
 
 <br>
 
-<form action="/listings/create" method="POST">
+<form action="/listings/create" method="POST" enctype="multipart/form-data">
     <div>
       <label for="productSummary">Short summary of listing</label>
       <input type="text" id="productSummary" name="productSummary" required>
@@ -32,7 +32,11 @@
             <option value="storage">Storage</option>
         </select>
     </div>
-    <button type="submit" onclick="listingCreated()">Post listing</button>
+    <div>
+      <label for="listingImage">Upload image of your listing</label>
+      <input type="file" name="image">
+    </div>
+      <button type="submit" onclick="listingCreated()">Post listing</button>
   </form>
 
 <script>
