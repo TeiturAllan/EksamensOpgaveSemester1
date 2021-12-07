@@ -74,12 +74,8 @@ app.post('/register', checkNotAuthenticated, (req, res) => {
             console.log(err);
         } else {
             console.log('new user created')
-            
         }
-        
-    
     }) 
-    
 })
 
   
@@ -134,16 +130,23 @@ app.get("/listings/create", checkAuthenticated, (req, res) => {
 
 //start of: code for creating a listing
 app.post('/listings/create', checkAuthenticated, (req, res) => {
-    newListing.push({
+    listings.push({
         id: Date.now().toString(),
         productSummary: req.body.productSummary,
         price: req.body.price,
         category: req.body.category,
-        listingOwner: req.user.username
+        listingOwner: req.user.username,
+        listingsOwnerId: req.user.id
     })
-    console.log('new listing created')
-    console.log(newListing);
-    
+    let saveAllListingsToDB = JSON.stringify(listings, null, 2);
+    fs.writeFile('listingsData.json', saveAllListingsToDB, (err) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log('New listing created')
+        }
+        res.redirect('/listings/create')
+    })
 })
 
 
@@ -218,6 +221,8 @@ function checkNotAuthenticated(req, res, next) {
 
 let userRawData = fs.readFileSync('usersData.json')
 let users = JSON.parse(userRawData)
-let newListing = []
+console.log('Users data read/loaded to server memory')
+let listingsRawData = fs.readFileSync('listingsData.json')
+let listings = JSON.parse(listingsRawData)
+console.log('Listings data read/loaded to server memory')
 app.listen(3000)
-console.log(users)
