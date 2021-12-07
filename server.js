@@ -15,7 +15,21 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 const multer = require('multer')
 
+app.set('view-engine', 'ejs')
+app.use(express.urlencoded({ extended: false }))
+app.use(flash())
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false}))
 
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(methodOverride('_method'))
+
+
+
+//start of: strategy for uploading images
 const storage = multer.diskStorage({
     destination: function(request, file, cb) {
         cb(null, 'listingsImages');
@@ -33,12 +47,15 @@ const imageFilter = (req, file, cb) => {
     }
 };
 
-
 const upload = multer({
     storage: storage, 
     limits: imageFilter})
+//end of: strategy for uploading image
 
-  
+
+
+//start of: strategy for persistant login, 
+//large portion of this is saved in file "passportConfig"
 const initializePassport = require('./passportConfig')
 const { json } = require('express')
     initializePassport(
@@ -46,21 +63,11 @@ const { json } = require('express')
     email => users.find(user => user.email === email),
     id => users.find(user => user.id === id)
 )
-  
+//end of: strategy for persistant login  
 
 
-app.set('view-engine', 'ejs')
-app.use(express.urlencoded({ extended: false }))
-app.use(flash())
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false}))
 
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(methodOverride('_method'))
-  
+//start of: routing and code for login/register users
 app.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs', { usernameDisplay: req.user.username })
 })
@@ -102,16 +109,16 @@ app.post('/register', checkNotAuthenticated, (req, res) => {
         }
     }) 
 })
-
+//end of: routing and code for login/register users
   
 
-
+//start of: logout function
 app.delete('/logout', (req, res) => {
     req.logOut()
     res.redirect('/login')
 })
-  
-//End of: Routing before login and routing to homepage  
+//end of: logout function  
+ 
 
 
 //Start of: Routing from homepage
@@ -173,7 +180,37 @@ app.post('/listings/create', upload.single('image'), checkAuthenticated, (req, r
         }
         res.redirect('/listings/create')
     })
+    let listingsWithCategoryCase = listings.filter(function(showOnlyCaseListings) {
+        return showOnlyCaseListings.category == "Case"})
+
+    let listingsWithCategoryCPU = listings.filter(function(showOnlyCPUListings) {
+        return showOnlyCPUListings.category == "CPU"})
+
+    let listingsWithCategoryCPUCooler = listings.filter(function(showOnlyCPUCoolerListings) {
+        return showOnlyCPUCoolerListings.category == "CPUCooler"})
+
+    let listingsWithCategoryDisplay = listings.filter(function(showOnlyDisplayListings) {
+        return showOnlyDisplayListings.category == "Display"})
+        
+    let listingsWithCategoryGPU = listings.filter(function(showOnlyGPUListings) {
+        return showOnlyGPUListings.category == "GPU"})
+
+    let listingsWithCategoryMotherboard = listings.filter(function(showOnlyMotherboardListings) {
+        return showOnlyMotherboardListings.category == "Motherboard"})
+
+    let listingsWithCategoryPeripheral = listings.filter(function(showOnlyPeripheralListings) {
+        return showOnlyPeripheralListings.category == "Peripheral"})
+
+    let listingsWithCategoryPSU = listings.filter(function(showOnlyPSUListings) {
+        return showOnlyPSUListings.category == "PSU"})
+        
+    let listingsWithCategoryRAM = listings.filter(function(showOnlyRAMListings) {
+        return showOnlyRAMListings.category == "RAM"})
+
+    let listingsWithCategoryStorage = listings.filter(function(showOnlyStorageListings) {
+        return showOnlyStorageListings.category == "Storage"})
 })
+//end of: code for creating a listing
 
 
 
@@ -184,7 +221,7 @@ app.post('/listings/create', upload.single('image'), checkAuthenticated, (req, r
 
 
 
-//start of: routing for listings categories
+//start of: routing and displaying data for listings by category
 app.get("/listings/cases", checkAuthenticated, (req, res) => {
     res.render("listingsCase.ejs", { usernameDisplay: req.user.username })
 })
@@ -228,7 +265,7 @@ app.get("/listings/storage", checkAuthenticated, (req, res) => {
 //End of: routing for "/listings"
 
 
-
+//start of: strategy for only allowing users who are logged in, to view webpage
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
       return next()
@@ -244,12 +281,54 @@ function checkNotAuthenticated(req, res, next) {
     }
     next()
 }
+//end of: strategy for only allowing users who are logged in, to view webpage
 
 
+
+//start of: reading data from storage/DB
 let userRawData = fs.readFileSync('usersData.json')
 let users = JSON.parse(userRawData)
 console.log('Users data read/loaded to server memory')
 let listingsRawData = fs.readFileSync('listingsData.json')
 let listings = JSON.parse(listingsRawData)
 console.log('Listings data read/loaded to server memory')
+//end of: reading data from storage/DB
+
+
+
+//start of: filtering listings into different categories
+let listingsWithCategoryCase = listings.filter(function(showOnlyCaseListings) {
+    return showOnlyCaseListings.category == "Case"})
+
+let listingsWithCategoryCPU = listings.filter(function(showOnlyCPUListings) {
+    return showOnlyCPUListings.category == "CPU"})
+
+let listingsWithCategoryCPUCooler = listings.filter(function(showOnlyCPUCoolerListings) {
+    return showOnlyCPUCoolerListings.category == "CPUCooler"})
+
+let listingsWithCategoryDisplay = listings.filter(function(showOnlyDisplayListings) {
+    return showOnlyDisplayListings.category == "Display"})
+    
+let listingsWithCategoryGPU = listings.filter(function(showOnlyGPUListings) {
+    return showOnlyGPUListings.category == "GPU"})
+
+let listingsWithCategoryMotherboard = listings.filter(function(showOnlyMotherboardListings) {
+    return showOnlyMotherboardListings.category == "Motherboard"})
+
+let listingsWithCategoryPeripheral = listings.filter(function(showOnlyPeripheralListings) {
+    return showOnlyPeripheralListings.category == "Peripheral"})
+
+let listingsWithCategoryPSU = listings.filter(function(showOnlyPSUListings) {
+    return showOnlyPSUListings.category == "PSU"})
+    
+let listingsWithCategoryRAM = listings.filter(function(showOnlyRAMListings) {
+    return showOnlyRAMListings.category == "RAM"})
+
+let listingsWithCategoryStorage = listings.filter(function(showOnlyStorageListings) {
+    return showOnlyStorageListings.category == "Storage"})
+
+console.log('listings filter into categories')
+//end of: filtering listings into categories
+
+
 app.listen(3000)

@@ -1,11 +1,29 @@
 [
   {
-    "id": "1638851306445",
+    "id": "1638852864823",
     "productSummary": "i5-9400f",
-    "price": "1000",
+    "price": "1500",
+    "category": "CPU",
+    "listingOwner": "Teitur",
+    "listingsOwnerId": "1638836803767",
+    "productImage": "listingsImages\\1638852864822"
+  },
+  {
+    "id": "1638852935846",
+    "productSummary": "Ryzen 5 5600x",
+    "price": "2500",
+    "category": "CPU",
+    "listingOwner": "Allan",
+    "listingsOwnerId": "1638836850447",
+    "productImage": "listingsImages\\1638852935845"
+  },
+  {
+    "id": "1638853070756",
+    "productSummary": "RTX 3060",
+    "price": "5500",
     "category": "GPU",
-    "listingOwner": "test",
-    "listingsOwnerId": "1638833537637",
-    "productImage": "listingsImages\\1638851306441"
+    "listingOwner": "Teitur",
+    "listingsOwnerId": "1638836803767",
+    "productImage": "listingsImages\\1638853070750"
   }
 ]
