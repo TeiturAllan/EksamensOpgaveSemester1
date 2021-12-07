@@ -1,3 +1,7 @@
+//discovered bug: when a new user is created, he can not log in until server has been restarted
+
+
+
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
   }
@@ -31,8 +35,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
-
-//start of: Routing before login and routing to homepage
+  
 app.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs', { usernameDisplay: req.user.username })
 })
@@ -56,33 +59,37 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 app.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register.ejs')
   })
-
   
-//start of: code for creating a user  
 app.post('/register', checkNotAuthenticated, (req, res) => {
-    newUser.push({
+    users.push({
         id: Date.now().toString(),
         username: req.body.username,
         email: req.body.email,
         password: req.body.password
     })
     res.redirect('/login')
-
-    let newUserCreated = JSON.stringify(newUser, null, 2);
-    fs.writeFile('usersData.json', newUserCreated, (err) => {
-    if (err) throw err;
-    console.log('New User added to database')
-    console.log(users)
+    let saveAllUserstoDB = JSON.stringify(users, null, 2);
+    fs.writeFile('usersData.json', saveAllUserstoDB, (err) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('new user created')
+            
+        }
+        
+    
+    }) 
+    
 })
-})
-//end of: code for creating a user  
 
+  
 
 
 app.delete('/logout', (req, res) => {
     req.logOut()
     res.redirect('/login')
 })
+  
 //End of: Routing before login and routing to homepage  
 
 
@@ -123,18 +130,20 @@ app.get("/listings/myListings", checkAuthenticated, (req, res) => {
 app.get("/listings/create", checkAuthenticated, (req, res) => {
     res.render("listingCreate.ejs", { usernameDisplay: req.user.username })
 })
+
+
 //start of: code for creating a listing
 app.post('/listings/create', checkAuthenticated, (req, res) => {
     newListing.push({
         id: Date.now().toString(),
         productSummary: req.body.productSummary,
         price: req.body.price,
-        category: req.body.category
+        category: req.body.category,
+        listingOwner: req.user.username
     })
     console.log('new listing created')
     console.log(newListing);
-
-   
+    
 })
 
 
@@ -206,9 +215,9 @@ function checkNotAuthenticated(req, res, next) {
     next()
 }
 
-let newUser = []
+
 let userRawData = fs.readFileSync('usersData.json')
 let users = JSON.parse(userRawData)
-
 let newListing = []
 app.listen(3000)
+console.log(users)
