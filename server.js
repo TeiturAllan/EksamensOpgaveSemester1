@@ -58,6 +58,7 @@ const upload = multer({
 //large portion of this is saved in file "passportConfig"
 const initializePassport = require('./passportConfig')
 const { json } = require('express')
+const { request } = require('http')
     initializePassport(
     passport,
     email => users.find(user => user.email === email),
@@ -127,7 +128,6 @@ app.get("/myAccount", checkAuthenticated, (req, res) => {
 })
 
 
-
 app.get("/listings", checkAuthenticated, (req, res) => {
     res.render("listings/listings.ejs", { usernameDisplay: req.user.username })
 })
@@ -141,6 +141,8 @@ app.get("/myAccount/changeAccountInformation", checkAuthenticated, (req, res) =>
     res.render("accountPage/changeAccountInformation.ejs", { usernameDisplay: req.user.username })
 })
 
+app.get
+
 /*route for "/listings/myListings will be the same as on the "/listings" page,
 it is therefore reduntant to put it here. if you are looking for that route,
 look under routing for listings page */
@@ -152,11 +154,16 @@ look under routing for listings page */
 /*routing for homepage is the same as for every other page*/
 
 app.get("/listings/myListings", checkAuthenticated, (req, res) => {
-    res.render("listings/myListings/myListings.ejs", { usernameDisplay: req.user.username })
+    let listingsICreated = listings.filter(function(showOnlyMyListings) {
+        return showOnlyMyListings.listingsOwnerId == req.user.id})
+    console.log(listingsICreated)
+    res.render("listings/myListings/myListings.ejs", 
+    { usernameDisplay: req.user.username, Listings: listingsICreated })
 })
 
 app.get("/listings/create", checkAuthenticated, (req, res) => {
-    res.render("listings/listingCreate/listingCreate.ejs", { usernameDisplay: req.user.username })
+    res.render("listings/listingCreate/listingCreate.ejs", 
+    { usernameDisplay: req.user.username })
 })
 
 
@@ -186,13 +193,6 @@ app.post('/listings/create', upload.single('image'), checkAuthenticated, (req, r
 
 
 
-
-
-
-
-
-
-
 //start of: routing for listings by category
 app.get("/listings/cases", checkAuthenticated, (req, res) => {
     let listingsWithCategoryCase = listings.filter(function(showOnlyCaseListings) {
@@ -206,6 +206,7 @@ app.get("/listings/CPUs", checkAuthenticated, (req, res) => {
         return showOnlyCPUListings.category == "CPU"})
     res.render("listings/listingsCPU/listingsCPU.ejs", 
     { usernameDisplay: req.user.username, Listings: listingsWithCategoryCPU})
+    console.log(listingsWithCategoryCPU);
 })
 
 app.get("/listings/CPUCoolers", checkAuthenticated, (req, res) => {
