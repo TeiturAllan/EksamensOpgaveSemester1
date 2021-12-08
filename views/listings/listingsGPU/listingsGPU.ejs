@@ -5,19 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>HTML 5 Boilerplate</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+      .individualListing{
+        background-color: rgb(139, 178, 230);
+        width: 400px;
+      }
+      .listingsImage{
+        width: 300px;
+        height: 150px;
+        
+      }
+    </style>
   </head>
   <body>
     <h1>Listings with category: GPU/Graphics Card/Graphics Processing Unit</h1>
     <h4>Logged in as: <%= usernameDisplay %></h4>
     
     <div class="Navigation bar">
-        <a href="/">Homepage</a>
-        <a href="/listings">Listings</a>
+      <a href="/">Homepage</a>
+      <a href="/listings">Listings</a>
+  </div>
+  
+  <% Listings.forEach(show => { %>
+    <div class="individualListing">
+      <p> <%= show.productSummary %> </p>
+      <p>price: <%= show.price %>kr </p>
+      <p>listing owner: <%= show.listingOwner%> </p>
+      <p> listings owner contact info: <%= show.listingsOwnerEmail%></p>
+      <img class="listingsImage" src="../../<%- show.productImage%>">
+      <div>
+        <br>
+      </div>
+      
     </div>
+    <% }) %>
 
 
 
-	<script src="index.js"></script>
+	
   </body>
 </html>
