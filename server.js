@@ -124,6 +124,7 @@ app.delete('/logout', (req, res) => {
 
 //Start of: Routing from homepage
 app.get("/myAccount", checkAuthenticated, (req, res) => {
+    
     res.render("accountPage/accountPage.ejs", { usernameDisplay: req.user.username })
 })
 
@@ -156,7 +157,6 @@ look under routing for listings page */
 app.get("/listings/myListings", checkAuthenticated, (req, res) => {
     let listingsICreated = listings.filter(function(showOnlyMyListings) {
         return showOnlyMyListings.listingsOwnerId == req.user.id})
-    console.log(listingsICreated)
     res.render("listings/myListings/myListings.ejs", 
     { usernameDisplay: req.user.username, Listings: listingsICreated })
 })
@@ -168,8 +168,10 @@ app.get("/listings/create", checkAuthenticated, (req, res) => {
 
 
 //start of: code for creating a listing
+let testUnit = []
+
 app.post('/listings/create', upload.single('image'), checkAuthenticated, (req, res) => {
-    listings.push({
+    testUnit.push({
         id: Date.now().toString(),
         productSummary: req.body.productSummary,
         price: req.body.price,
@@ -179,7 +181,7 @@ app.post('/listings/create', upload.single('image'), checkAuthenticated, (req, r
         listingsOwnerEmail: req.user.email,
         productImage: req.file.originalname
     })
-    let saveAllListingsToDB = JSON.stringify(listings, null, 2);
+    let saveAllListingsToDB = JSON.stringify(testUnit, null, 2);
     fs.writeFile('listingsData.json', saveAllListingsToDB, (err) => {
         if (err) {
             console.log(err)
@@ -190,7 +192,6 @@ app.post('/listings/create', upload.single('image'), checkAuthenticated, (req, r
     })
 })
 //end of: code for creating a listing
-
 
 
 //start of: routing for listings by category
@@ -206,7 +207,6 @@ app.get("/listings/CPUs", checkAuthenticated, (req, res) => {
         return showOnlyCPUListings.category == "CPU"})
     res.render("listings/listingsCPU/listingsCPU.ejs", 
     { usernameDisplay: req.user.username, Listings: listingsWithCategoryCPU})
-    console.log(listingsWithCategoryCPU);
 })
 
 app.get("/listings/CPUCoolers", checkAuthenticated, (req, res) => {
@@ -294,7 +294,7 @@ let userRawData = fs.readFileSync('usersData.json')
 let users = JSON.parse(userRawData)
 console.log('Users data read/loaded to server memory')
 let listingsRawData = fs.readFileSync('listingsData.json')
-let listings = JSON.parse(listingsRawData)
+//let listings = JSON.parse(listingsRawData)
 console.log('Listings data read/loaded to server memory')
 //end of: reading data from storage/DB
 
@@ -302,6 +302,5 @@ console.log('Listings data read/loaded to server memory')
 console.log('listings filter into categories')
 //end of: filtering listings into categories
 
-module.exports = listings
 
 app.listen(3000)

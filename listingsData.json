@@ -1,102 +1,12 @@
 [
   {
-    "id": "1638965727133",
-    "productSummary": "i5-9400f",
-    "price": "1500",
-    "category": "CPU",
-    "listingOwner": "Teitur",
-    "listingsOwnerId": "1638965700994",
-    "listingsOwnerEmail": "Teitur@falskEmail.com",
-    "productImage": "i5-9400f.jfif"
-  },
-  {
-    "id": "1638965742652",
-    "productSummary": "RTX 3060",
-    "price": "5799",
-    "category": "GPU",
-    "listingOwner": "Teitur",
-    "listingsOwnerId": "1638965700994",
-    "listingsOwnerEmail": "Teitur@falskEmail.com",
-    "productImage": "RTX 3060.jpg"
-  },
-  {
-    "id": "1638966177215",
-    "productSummary": "Gaming skærm",
-    "price": "1200",
-    "category": "Display",
-    "listingOwner": "Teitur",
-    "listingsOwnerId": "1638965700994",
-    "listingsOwnerEmail": "Teitur@falskEmail.com",
-    "productImage": "gaming skærm 144Hz.jfif"
-  },
-  {
-    "id": "1638966213668",
-    "productSummary": "NVMe SSD disk 1TB",
-    "price": "900",
+    "id": "1639130648384",
+    "productSummary": "Test listing",
+    "price": "test",
     "category": "Storage",
-    "listingOwner": "Teitur",
-    "listingsOwnerId": "1638965700994",
-    "listingsOwnerEmail": "Teitur@falskEmail.com",
-    "productImage": "samsung evo pro 980 1tb.jfif"
-  },
-  {
-    "id": "1638966241951",
-    "productSummary": "TX750M PSU",
-    "price": "600",
-    "category": "PSU",
-    "listingOwner": "Teitur",
-    "listingsOwnerId": "1638965700994",
-    "listingsOwnerEmail": "Teitur@falskEmail.com",
-    "productImage": "Tx750m.jfif"
-  },
-  {
-    "id": "1638966261345",
-    "productSummary": "X570 Motherboard ASUS",
-    "price": "1700",
-    "category": "Motherboard",
-    "listingOwner": "Teitur",
-    "listingsOwnerId": "1638965700994",
-    "listingsOwnerEmail": "Teitur@falskEmail.com",
-    "productImage": "X570Asus.jfif"
-  },
-  {
-    "id": "1638966331020",
-    "productSummary": "Ryzen 5 5600x",
-    "price": "1700",
-    "category": "CPU",
-    "listingOwner": "Allan",
-    "listingsOwnerId": "1638966299490",
-    "listingsOwnerEmail": "Allan@falskEmail.com",
-    "productImage": "Ryzen 5 5600x.jpg"
-  },
-  {
-    "id": "1638966352570",
-    "productSummary": "Logitech G Pro Wireless",
-    "price": "750",
-    "category": "Peripheral",
-    "listingOwner": "Allan",
-    "listingsOwnerId": "1638966299490",
-    "listingsOwnerEmail": "Allan@falskEmail.com",
-    "productImage": "logitech G pro Wireless gaming.jfif"
-  },
-  {
-    "id": "1638966385583",
-    "productSummary": "16GB RAM DDR4 Ballistix",
-    "price": "500",
-    "category": "RAM",
-    "listingOwner": "Allan",
-    "listingsOwnerId": "1638966299490",
-    "listingsOwnerEmail": "Allan@falskEmail.com",
-    "productImage": "16GB RAM DDR4 ballistix.jfif"
-  },
-  {
-    "id": "1638967139853",
-    "productSummary": "i7-11700k",
-    "price": "3000",
-    "category": "CPU",
-    "listingOwner": "Teitur",
-    "listingsOwnerId": "1638965700994",
-    "listingsOwnerEmail": "Teitur@falskEmail.com",
-    "productImage": "i7-11700k.jfif"
+    "listingOwner": "test",
+    "listingsOwnerId": "1639121444447",
+    "listingsOwnerEmail": "test@test",
+    "productImage": "testImage.jfif"
   }
 ]
